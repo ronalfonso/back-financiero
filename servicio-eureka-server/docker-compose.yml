@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:13.14
+    container_name: db
+    environment:
+      - POSTGRES_DB=devsu_db
+      - POSTGRES_CREATE_USER=postgres
+      - POSTGRES_CREATE_USER_PASSWORD=secret
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+volumes:
+  db-data:
